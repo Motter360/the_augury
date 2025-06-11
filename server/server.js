@@ -1,5 +1,6 @@
 import express from 'express';
 import knex from 'knex';
+import cors from 'cors'
 
 /* 
 Lets get some use cases on what data I want people to be able to querry from the website.
@@ -34,7 +35,7 @@ Table specific desires:
 
 
 
-const PORT = 3000;
+const PORT = 4000;
 const server = express();
 
 const db = knex({
@@ -49,6 +50,7 @@ async function renameTable(oldName, newName){
     await db.raw(`ALTER TABLE ${oldName} RENAME TO ${newName};`)
 }
 
+server.use(cors())
 
 server.get('/', async (req, res) => {
    const tables = await db.raw(`SELECT name FROM sqlite_master WHERE type = 'table'`);
