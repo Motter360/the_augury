@@ -50,13 +50,28 @@ async function renameTable(oldName, newName){
     await db.raw(`ALTER TABLE ${oldName} RENAME TO ${newName};`)
 }
 
+function filterData(dbArr, filterArr){
+    const filteredData = []
+    for(let i = 0; i < filterArr.length; i++){
+        dbArr.map((item) =>{
+            if(item.name === filterArr[i]){
+                filteredData.push(item)
+            }
+        })
+    }
+    return filteredData;
+}
+
 server.use(cors())
 
 server.get('/', async (req, res) => {
-   const tables = await db.raw(`SELECT name FROM sqlite_master WHERE type = 'table'`);
-   if (req.url === '/'){
-        res.json(tables);
-    }
+    const allowedTables = ["players","realms","cities","legends","locations","factions","npcs","events","regions"];
+    const tables = await db.raw(`SELECT name FROM sqlite_master WHERE type = 'table'`);
+    const filteredData = filterData(tables, allowedTables);
+
+    if (req.url === '/'){
+            res.json(filteredData);
+        }
 })
 
 server.get('/:table', async (req, res) => {
