@@ -65,7 +65,7 @@ function filterData(dbArr, filterArr){
 server.use(cors())
 
 server.get('/', async (req, res) => {
-    const allowedTables = ["players","realms","cities","legends","locations","factions","npcs","events","regions"];
+    const allowedTables = ["realms","cities","legends","locations","factions","npcs","events","regions"];
     const tables = await db.raw(`SELECT name FROM sqlite_master WHERE type = 'table'`);
     const filteredData = filterData(tables, allowedTables);
 
