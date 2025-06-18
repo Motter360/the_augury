@@ -14,7 +14,10 @@ export default function legendsTable(){
             <div className={styles.page}>
                 <Loading loading = {loading} />
                 <Error error = {error} />
-                <Table data = {data} />
+                <Table 
+                    data = {data}
+                    tableName = "legends"
+                    />
             </div>
         );
 }

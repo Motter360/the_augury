@@ -14,7 +14,10 @@ export default function factionsTable(){
             <div className={styles.page}>
                 <Loading loading = {loading} />
                 <Error error = {error} />
-                <Table data = {data} />
+                <Table 
+                    data = {data}
+                    tableName = "factions" 
+                    />
             </div>
         );
 }

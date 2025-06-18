@@ -14,7 +14,10 @@ export default function npcsTable(){
             <div className={styles.page}>
                 <Loading loading = {loading} />
                 <Error error = {error} />
-                <Table data = {data} />
+                <Table 
+                    data = {data}
+                    tableName = 'npcs'
+                    />
             </div>
         );
 }
