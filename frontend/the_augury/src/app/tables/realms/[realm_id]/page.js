@@ -2,7 +2,7 @@
 
 import React from "react";
 import Record from "@/components/Record";
-import useFetchData from "@/utilities/useFetchData";
+import useFetchData from "@/utilities/UseFetchData";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
 import { useParams } from "next/navigation";
@@ -14,10 +14,9 @@ export default function Realm() {
 
     return( 
         <>
-            <Loading  loading={loading}/>
+            <Loading  loading={loading} />
             <Error error={error} />
-            <Record data = {data}
-            />
+            <Record data = {data} />
         </>
     )
    

@@ -1,9 +1,10 @@
 import React from "react";
 import doesExist from "@/utilities/doesExist";
-import RelatedRecords from "./RelatedRecords";
+import Link from "next/link";
+import filter from "@/utilities/filter";
 
 export default function Record(props){
-    const {data, relatedData} = props
+    const {data, regionsData} = props
 
     if(data){
         const item = data[0]
@@ -12,16 +13,15 @@ export default function Record(props){
         const regions_id = doesExist(item.regions_id, null)
         const realms_id = doesExist(item.realms_id, null)
         const dnd_class = doesExist(item.class, null)
+        const realmName = regionsData ? filter(regions_id, regionsData) : regions_id
         return(
             <>
                 <h1>{name}</h1>
                 {dnd_class ? <h3>{dnd_class}</h3> : null}
-                {regions_id ? <h4>Region: {regions_id}</h4> : null}
+                {regions_id ? <h4>Region: {realmName}</h4> : null}
                 {realms_id ? <h4>Realm: {realms_id}</h4> : null}
+                <Link href="/">Home</Link>
                 <p>{description}</p>
-                <RelatedRecords 
-                    relatedData = {relatedData}
-                />
             </>
         )
     }

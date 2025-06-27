@@ -2,12 +2,12 @@
 
 import React from "react";
 import styles from "./legends.module.css"
-import useFetchData from "@/utilities/useFetchData";
+import useFetchData from "@/utilities/UseFetchData";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
 import Table from "@/components/Table";
 
-export default function legendsTable(){
+export default function LegendsTable(){
     const {data, loading, error} = useFetchData("legends")
 
     return (

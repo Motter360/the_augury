@@ -4,6 +4,9 @@ import LandingPage from "../pages/LandingPage";
 
 export default function Home() {
     return(
-      <LandingPage />
+      <>
+        <h1>Which Mystery Binds You Still?</h1>
+        <LandingPage />
+      </>
     )
 }

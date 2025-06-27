@@ -2,12 +2,12 @@
 
 import React from "react";
 import styles from "./factions.module.css"
-import useFetchData from "@/utilities/useFetchData";
+import useFetchData from "@/utilities/UseFetchData";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
 import Table from "@/components/Table";
 
-export default function factionsTable(){
+export default function FactionsTable(){
     const {data, loading, error} = useFetchData("factions")
 
     return (
