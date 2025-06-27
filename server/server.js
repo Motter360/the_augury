@@ -60,6 +60,10 @@ async function renameTable(oldName, newName){
     await db.raw(`ALTER TABLE ${oldName} RENAME TO ${newName};`)
 }
 
+async function renameColumn(table, oldName, newName){
+    await db.raw(`ALTER TABLE ${table} RENAME COLUMN ${oldName} TO ${newName}`)
+}
+
 function filterData(dbArr, filterArr){
     const filteredData = []
     for(let i = 0; i < filterArr.length; i++){
@@ -94,19 +98,37 @@ server.get('/', async (req, res) => {
     const allowedTables = ["realms","cities","legends","locations","factions","npcs","events","regions"];
     const tables = await db.raw(`SELECT name FROM sqlite_master WHERE type = 'table'`);
     const filteredData = filterData(tables, allowedTables);
+    const alphabetizedData = filteredData.sort(function (a, b) {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+            });
 
     if (req.url === '/'){
-            res.json(tables);
+            res.json(alphabetizedData);
         }
 })
 
 server.get('/:table', async (req, res) => {
     const { table } = req.params;
-    const result = await db.raw(`SELECT * FROM ${table}`);
+    const data = await db.raw(`SELECT * FROM ${table}`);
+    const result = data.sort(function (a, b) {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+            });
     try {
         res.json(result);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message});
     }
 });
 
@@ -116,7 +138,7 @@ server.get('/:table/:id', async (req, res) => {
     try {
         res.json(result);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ error: error.message});
     }
 });
 
@@ -125,13 +147,28 @@ server.get('/queryJoinTable/:table/:feildYouHave/:feildYouWant/:id', async (req,
     const desiredFeild = await db.raw(`SELECT ${feildYouWant} FROM ${table} WHERE ${feildYouHave} = ${id}`) 
     const matchingIDs = desiredFeild.map( obj => obj[feildYouWant])
     const desiredTable = findMatchingTable(feildYouWant)
-    const results = await db.raw(`SELECT * FROM ${desiredTable} WHERE id IN (${matchingIDs.join(',')})`)
-    
+    const data = await db.raw(`SELECT * FROM ${desiredTable} WHERE id IN (${matchingIDs.join(',')})`)
+    const results = data.sort(function (a, b) {
+            if (a.name < b.name) {
+                return -1;
+            }
+            if (a.name > b.name) {
+                return 1;
+            }
+            return 0;
+            });
+
     try {
         res.json(results)
     } catch (error){
         res.status(500).json({error: error.message})
     }
+})
+
+server.put('/:table/:id', async (req, res) => {
+    const { table, id } = req.params;
+    //const {name, region_id, description} = req.body;
+    console.log(req.body)
 })
 
 server.listen(PORT, ()=>{
