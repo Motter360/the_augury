@@ -10,6 +10,10 @@ body {
   margin: 1em auto 0 auto ;
 }
 
+.checkboxFeild {
+  margin-bottom: .5rem;
+}
+
 @media screen and (min-width: 940px){
   .checkboxFeild {
     display: grid;
