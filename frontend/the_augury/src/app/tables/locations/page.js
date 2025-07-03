@@ -2,12 +2,12 @@
 
 import React from "react";
 import styles from "./locations.module.css"
-import useFetchData from "@/utilities/useFetchData";
+import useFetchData from "@/utilities/UseFetchData";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
 import Table from "@/components/Table";
 
-export default function locationsTable(){
+export default function LocationsTable(){
     const {data, loading, error} = useFetchData("locations")
 
     return (

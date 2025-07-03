@@ -2,12 +2,12 @@
 
 import React from "react";
 import styles from "./events.module.css"
-import useFetchData from "@/utilities/useFetchData";
+import useFetchData from "@/utilities/UseFetchData";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
 import Table from "@/components/Table";
 
-export default function eventsTable(){
+export default function EventsTable(){
     const {data, loading, error} = useFetchData("events")
 
     return (

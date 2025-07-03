@@ -1,13 +1,21 @@
 import React from "react";
-
+import Link from "next/link";
+import capitalizeFirstLetter from "@/utilities/capitalizeFirstLetter";
 
 export default function RelatedRecords(props){
-    const {relatedData} = props
-
+    const {relatedData, dataType} = props
+    
     if (relatedData){
         return(
             <>
-                <h1>Hello World!</h1>
+                <h3>{capitalizeFirstLetter(dataType)}</h3>
+                <ul>
+                    {relatedData.map(record => (
+                        <li key={record.name}>
+                            <Link href={`/tables/${dataType}/${record.id}`}>{record.name}</Link>
+                        </li>)
+                    )}
+                </ul>
             </>
         )
     }

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "../app/page.module.css";
-import useFetchData from "../utilities/useFetchData";
+import useFetchData from "../utilities/UseFetchData";
 import Loading from "@/components/Loading";
 import Error from "@/components/Error";
 import IndexTable from "@/components/IndexTable";
