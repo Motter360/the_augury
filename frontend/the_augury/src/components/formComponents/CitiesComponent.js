@@ -2,6 +2,8 @@ import React from "react";
 
 export default function CitiesComponent(props){
     const {relatedIDs, citiesData} = props
+
+    
     return(
         <>
         <label>Related Cities</label>
@@ -13,7 +15,7 @@ export default function CitiesComponent(props){
                             <input 
                                 type="checkbox" 
                                 id={city.id} 
-                                name={city.id} 
+                                name="cityIDs" 
                                 value={city.id} 
                                 defaultChecked
                                 />
@@ -26,7 +28,7 @@ export default function CitiesComponent(props){
                             <input 
                                 type="checkbox" 
                                 id={city.id} 
-                                name={city.id} 
+                                name="cityIDs" 
                                 value={city.id}
                                 />
                             <label htmlFor={city.id}>{city.name}</label>

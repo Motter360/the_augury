@@ -23,7 +23,6 @@ export default  async function updateJoinTable(table, id, relatedData){
     const existingRelations = rawData.map(obj => obj[`${alterColumn}`])
 
     // We now have the exsiting relationships, time to update them
-    const targetData = relatedData[0]
-
-    await queryJoinTable(joinTable, alterColumn, anchorColumn, targetData.id, existingRelations, id)
+    const targetData = relatedData.id
+    await queryJoinTable(joinTable, alterColumn, anchorColumn, targetData, existingRelations, id)
 }

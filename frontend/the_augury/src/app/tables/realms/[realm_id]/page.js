@@ -14,8 +14,10 @@ export default function Realm() {
     const path = "realms/" + params.realm_id
     const {data, loading, error} = useFetchData(path)
     const rawRegionsData = useFetchData("regions")
-    const regionsData = rawRegionsData.data ? rawRegionsData.data.filter((region) => region.id === params.realm_id) : null
-
+    const regionsData = rawRegionsData.data ? 
+        rawRegionsData.data.filter(
+            (region) => (region.realms_id === parseInt(params.realm_id))
+        ) : null
     const [edit, setEdit] = React.useState(false)
     const toggleEdit = () => setEdit((bool) => !bool)
             
@@ -24,18 +26,19 @@ export default function Realm() {
             <>
                 <Loading  loading={loading} />
                 <Error error={error} />
+                <button onClick={toggleEdit}>Edit</button>
                 <Record data={data} />
                 <RelatedRecords 
                     relatedData={regionsData}
-                    dataType = "Regions"
+                    dataType = "regions"
                 />
             </>
         )
     } else {
             return(
                 <EditRecord 
+                    path={path}
                     data={data}
-                    
                 />
             )
         }

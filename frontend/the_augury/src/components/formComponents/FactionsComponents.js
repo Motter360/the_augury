@@ -13,7 +13,7 @@ export default function FactionsComponent(props){
                             <input 
                                 type="checkbox" 
                                 id={faction.id} 
-                                name={faction.id} 
+                                name="factionIDs"
                                 value={faction.id} 
                                 defaultChecked
                                 />
@@ -26,7 +26,7 @@ export default function FactionsComponent(props){
                             <input 
                                 type="checkbox" 
                                 id={faction.id} 
-                                name={faction.id} 
+                                name="factionIDs" 
                                 value={faction.id}
                                 />
                             <label htmlFor={faction.id}>{faction.name}</label>

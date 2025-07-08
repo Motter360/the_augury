@@ -5,7 +5,7 @@ export default function RealmsComponent(props){
     return(
         <>
             <label htmlFor="realms">Realms</label>
-            <select id="realms" required>
+            <select name="realm" id="realms" required>
                 {realmsData.map((realm) => {
                     if(realm.id === record.realms_id){
                         return(<option 

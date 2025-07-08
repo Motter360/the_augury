@@ -47,6 +47,7 @@ export default function Npc() {
     } else {
         return(
             <EditRecord 
+                path={path}
                 data={data}
                 relatedCities={relatedCities.data}
                 citiesData={citiesData.data}

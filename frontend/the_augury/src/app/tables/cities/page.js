@@ -10,6 +10,8 @@ import Table from "@/components/Table";
 export default function CitiesTable(){
     const {data, loading, error} = useFetchData("cities")
 
+    const [creatingRecord, setCreatingRecord]= React.useState(false)
+
     return (
             <div className={styles.page}>
                 <Loading loading = {loading} />

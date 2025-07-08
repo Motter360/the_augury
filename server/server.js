@@ -112,8 +112,11 @@ server.put('/:table/:id', async (req, res) => {
       return res.status(404).json({ error: 'Record not found' });
     } 
 
-    await updateJoinTable(table, id, relatedData)
-    await SQLiteUpdateQueries(table, feildData);
+    for(const relation of relatedData) {
+        await updateJoinTable(table, id, relation)
+    }
+
+    await SQLiteUpdateQueries(table, feildData, id);
 
     try {
         res.json("Update Successful!")

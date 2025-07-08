@@ -35,6 +35,7 @@ export default function Faction() {
     } else {
         return(
             <EditRecord 
+                path={path}
                 data={data}
                 relatedNPCs={relatedNPCs.data}
                 npcsData={npcsData.data}

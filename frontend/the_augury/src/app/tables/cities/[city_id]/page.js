@@ -40,6 +40,7 @@ export default function City() {
         return(
             <EditRecord 
                 data={data}
+                path={path}
                 regionsData={regionsData.data} 
                 relatedNPCs={relatedNPCs.data}
                 npcsData={npcsData.data}

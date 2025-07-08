@@ -7,6 +7,7 @@ export default function DescriptionComponent(props){
             <label htmlFor="description">Discription</label>
             <textarea 
                 className="descriptionInput"
+                name="description"
                 id="description" 
                 placeholder="Descprition" 
                 defaultValue={record.description}/>

@@ -5,7 +5,7 @@ export default function RegionsComponent(props){
     return(
         <>
             <label htmlFor="regions">Region</label>
-            <select id="regions" required>
+            <select name="region" id="regions" required>
                 {regionsData.map((region) => {
                     if(region.id === record.regions_id){
                         return(<option 

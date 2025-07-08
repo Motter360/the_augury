@@ -11,22 +11,15 @@ export default function updateRecord(path, data){
             b. What related information it will be querying. 
     
     */
+    console.log(path)
+    console.log(data)
 
-    const newCity = {
-        feildData: {
-            name: "Andlemar",
-            region_id: 7,
-            description: "Drow Lineage.",
-            },
-        relatedData: [{alter: "npcs", id: []}]
-    }
-
-    fetch("http://localhost:4000/cities/21", {
+    fetch(`http://localhost:4000/${path}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(newCity)
+        body: JSON.stringify(data)
     }).then(res =>{
         if(!res.ok){
             console.log("Problem, Captain!")
