@@ -1,7 +1,7 @@
-export default function updateRecord(path, data){
+export default function deleteRecord(path, data){
 
     fetch(`http://localhost:4000/${path}`, {
-        method: "PUT",
+        method: "DELETE",
         headers: {
             "Content-Type": "application/json"
         },

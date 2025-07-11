@@ -9,12 +9,14 @@ export default function RealmsComponent(props){
                 {realmsData.map((realm) => {
                     if(realm.id === record.realms_id){
                         return(<option 
-                                    key={realm.id} 
+                                    key={realm.id}
+                                    value={realm.id} 
                                     selected
                                 >{realm.name}</option>)
                     } else {
                         return(<option 
                                 key={realm.id} 
+                                value={realm.id}
                                 >{realm.name}</option>)
                     }})}
             </select>

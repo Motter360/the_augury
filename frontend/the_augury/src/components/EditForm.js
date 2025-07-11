@@ -1,5 +1,6 @@
 import React from "react";
 import updateRecord from "@/utilities/updateRecord";
+import deleteRecord from "@/utilities/deleteRecord.js";
 import RegionsComponent from "./formComponents/RegionsComponent.js";
 import NameComponent from "./formComponents/NameComponent.js";
 import DescriptionComponent from "./formComponents/DescriptionComponent.js";
@@ -26,9 +27,12 @@ export default function EditRecord(props){
     if(data){ 
         const record = data[0]
 
+        //function handleDelete(path, ){}
+
         return(
             <>
                 <form onSubmit={(e) =>{
+                    e.preventDefault()
                     const formData = new FormData(e.currentTarget)
                     const name = formData.get('name')
                     const DndClass = record.class ? formData.get('DndClass') : null
@@ -64,8 +68,8 @@ export default function EditRecord(props){
                         feildData: {
                             name: name,
                             DndClass: DndClass,
-                            realm_id: realm,
-                            region_id: region,
+                            realms_id: realm,
+                            regions_id: region,
                             description: description,
                         },
                         relatedData: relatedData,
@@ -86,6 +90,7 @@ export default function EditRecord(props){
                     {relatedCities ? <CitiesComponent citiesData={citiesData}
                                 relatedIDs={relatedCities.map((data) => data.id)} />: null}
                     <button className="formSubmit">Update Record</button>
+                    <button className="delete">DELETE</button>
                 </form>
             </>
         )

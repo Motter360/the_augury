@@ -1,7 +1,8 @@
-export default function updateRecord(path, data){
+export default function createNewRecord(tableName, data){
+    console.log(tableName, data)
 
-    fetch(`http://localhost:4000/${path}`, {
-        method: "PUT",
+    fetch(`http://localhost:4000/${tableName}`, {
+        method: "POST",
         headers: {
             "Content-Type": "application/json"
         },

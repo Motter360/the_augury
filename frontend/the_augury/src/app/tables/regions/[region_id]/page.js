@@ -46,6 +46,7 @@ export default function Region() {
             <EditRecord 
                 path={path}
                 data={data}
+                realmsData={realmsData.data}
             />
         )
     }  

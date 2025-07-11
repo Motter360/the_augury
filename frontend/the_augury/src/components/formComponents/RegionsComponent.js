@@ -11,10 +11,12 @@ export default function RegionsComponent(props){
                         return(<option 
                                     key={region.id} 
                                     selected
+                                    value={region.id}
                                 >{region.name}</option>)
                     } else {
                         return(<option 
                                 key={region.id} 
+                                value={region.id}
                                 >{region.name}</option>)
                     }})}
             </select>
