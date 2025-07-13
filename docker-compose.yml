@@ -1,0 +1,4 @@
+include:
+  - path: './frontend/the_augury/docker-compose.yml'
+  - path: './server/docker-compose.yml'
+

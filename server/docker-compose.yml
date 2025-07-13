@@ -1,0 +1,11 @@
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    environment:
+      DB_PATH: ${DB_PATH}
+    ports:
+      - 4000:4000
+    volumes:
+      - ./data:/data
