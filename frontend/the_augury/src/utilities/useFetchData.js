@@ -9,7 +9,7 @@ export default function UseFetchData(path){
         const fetchData = async () => {
             try{
                 setLoading(true);
-                const response = await fetch("http://localhost:4000/" + path)
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${path}`)
 
                 if (!response.ok){
                     throw new Error(`HTTP Error! Status:${response.status}`)
