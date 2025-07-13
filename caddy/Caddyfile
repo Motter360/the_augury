@@ -1,4 +1,4 @@
-http://localhost {
+https://theaugury.hammonthomas.com {
 	# HTTP Basic Auth on all routes
 	# generate a bcrypt hash via `caddy hash-password`
 	basicauth {
