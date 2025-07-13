@@ -1,0 +1,10 @@
+services:
+  server:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    environment:
+      DB_PATH: ${DB_PATH}
+    volumes:
+      - ./data:/data

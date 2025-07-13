@@ -1,5 +1,5 @@
+import 'dotenv/config';
 import express, { response } from 'express';
-import knex from 'knex';
 import cors from 'cors'
 import bodyParser from 'body-parser';
 import findMatchingTable from './utilities/findMatchingTable.js';
@@ -7,6 +7,7 @@ import filterData from './utilities/filterData.js'
 import updateJoinTable from './utilities/updateJoinTable.js';
 import SQLiteUpdateQueries from './utilities/SQLiteUpdateQueries.js';
 import SQLiteInsertQueries from './utilities/SQLiteInsertQueries.js';
+import { db } from './db.js';
 
 /* 
 Handle these kinds of requests:
@@ -21,13 +22,6 @@ Handle these kinds of requests:
 const PORT = 4000;
 const server = express();
 
-const db = knex({
-  client: 'sqlite3',
-  connection: {
-    filename: '../database/Pathfinders_DND_Campaign_Lore.db'
-  },
-  useNullAsDefault: true
-});
 
 server.use(bodyParser.urlencoded())
 server.use(bodyParser.json())
@@ -148,6 +142,7 @@ server.put('/:table/:id', async (req, res) => {
         await SQLiteUpdateQueries(table, feildData, id);
         res.json("Update Successful!")
     } catch (error){
+        console.log(error);
         res.status(500).json({error: "oopise"})
     }
 })

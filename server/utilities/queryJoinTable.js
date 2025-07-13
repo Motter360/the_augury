@@ -1,12 +1,4 @@
-import knex from "knex"
-
-const db = knex({
-  client: 'sqlite3',
-  connection: {
-    filename: '../database/Pathfinders_DND_Campaign_Lore.db'
-  },
-  useNullAsDefault: true
-});
+import { db } from '../db.js';
 
 export default async function queryJoinTable(joinTable, alterColumn, anchorColumn, newRelationIDs, oldRelationIDs, anchorID){
         if(newRelationIDs.length === 0 && oldRelationIDs.length === 0){

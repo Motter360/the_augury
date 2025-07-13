@@ -1,16 +1,8 @@
-import knex from "knex";
+import { db } from '../db.js';
 import findAlterColumn from "./findAlterColumn.js"
 import findAnchorColumn from './findAnchorColumn.js';
 import findJoinTable from './findJoinTable.js';
 import queryJoinTable from './queryJoinTable.js'
-
-const db = knex({
-  client: 'sqlite3',
-  connection: {
-    filename: '../database/Pathfinders_DND_Campaign_Lore.db'
-  },
-  useNullAsDefault: true
-});
 
 export default  async function updateJoinTable(table, id, relatedData){
     // Given the table, record id, and relatedData obj, start identifying the relevant information
