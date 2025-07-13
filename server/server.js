@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express, { response } from 'express';
 import knex from 'knex';
 import cors from 'cors'
@@ -24,7 +25,7 @@ const server = express();
 const db = knex({
   client: 'sqlite3',
   connection: {
-    filename: '../database/Pathfinders_DND_Campaign_Lore.db'
+    filename: process.env.DB_PATH,
   },
   useNullAsDefault: true
 });
