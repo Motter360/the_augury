@@ -1,0 +1,15 @@
+http://localhost {
+	# HTTP Basic Auth on all routes
+	# generate a bcrypt hash via `caddy hash-password`
+	basicauth {
+		admin "{env.ADMIN_PASSWORD}"
+	}
+
+	# Match any request whose path begins with /api and remove /api from url
+	handle_path /api/* {
+		reverse_proxy server:4000
+	}
+
+	# All other requests go to the frontend
+	reverse_proxy frontend:3000
+}

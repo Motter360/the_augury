@@ -1,4 +1,4 @@
 include:
   - path: './frontend/the_augury/docker-compose.yml'
   - path: './server/docker-compose.yml'
-
+  - path: './caddy/docker-compose.yml'

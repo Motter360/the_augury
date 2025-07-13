@@ -3,9 +3,8 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
+    restart: unless-stopped
     environment:
       DB_PATH: ${DB_PATH}
-    ports:
-      - 4000:4000
     volumes:
       - ./data:/data
