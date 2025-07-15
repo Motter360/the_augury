@@ -20,6 +20,7 @@ export default function Npc() {
 
     const relatedCities = useFetchData(relatedCityDataPath)
     const citiesData = useFetchData("cities")
+    
 
     const relatedFactions = useFetchData(relatedFactionDataPath)
     const factionsData = useFetchData("factions")

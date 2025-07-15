@@ -23,6 +23,10 @@ export default function CreateForm(props){
         } = props
     
     const record = {}
+
+    function loadTable(){
+        window.location.href = `./${tableName}`
+    }
   
     return(
         <>
@@ -87,7 +91,7 @@ export default function CreateForm(props){
                             relatedIDs={[]} />: null}
                 {citiesData ? <CitiesComponent citiesData={citiesData}
                             relatedIDs={[]} />: null}
-                <button className="formSubmit">Submit Creation</button>
+                <button className="formSubmit" onClick={() => loadTable()}>Submit Creation</button>
             </form>
         </>
     )

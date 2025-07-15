@@ -9,19 +9,8 @@ import SQLiteUpdateQueries from './utilities/SQLiteUpdateQueries.js';
 import SQLiteInsertQueries from './utilities/SQLiteInsertQueries.js';
 import { db } from './db.js';
 
-/* 
-Handle these kinds of requests:
-    Get - Retrieve information
-    Post - Create new information
-    Put - Update exsisting information
-    Delete - Remove information (or mark it as deleted)
-*/
-
-
-
 const PORT = 4000;
 const server = express();
-
 
 server.use(bodyParser.urlencoded())
 server.use(bodyParser.json())
@@ -100,26 +89,26 @@ server.get('/queryJoinTable/:table/:feildYouHave/:feildYouWant/:id', async (req,
 
 server.post('/:table', async (req, res) => {
     try { 
-    const { table } = req.params;
-    const { feildData, relatedData } = req.body;
-    const allowedTables = ["realms","cities","factions","npcs","regions"]
+        const { table } = req.params;
+        const { feildData, relatedData } = req.body;
+        const allowedTables = ["realms","cities","factions","npcs","regions"]
 
-    if (!allowedTables.includes(table)){
-        res.status(404).json({error: "Table not found."})
-    }
-    //console.log(table, feildData, relatedData)
+        if (!allowedTables.includes(table)){
+            res.status(404).json({error: "Table not found."})
+        }
+        console.log("Creating new record", table, feildData, relatedData)
 
-    await SQLiteInsertQueries(table, feildData)
+        await SQLiteInsertQueries(table, feildData)
 
-    const relatedID = await db.raw(`SELECT id FROM ${table} WHERE name = ?`, [feildData.name])
-    const id = relatedID[0].id
-    console.log(id)
+        const relatedID = await db.raw(`SELECT id FROM ${table} WHERE name = ?`, [feildData.name])
+        const id = relatedID[0].id
+        console.log(id)
 
-    for(const relation of relatedData) {
-        await updateJoinTable(table, id, relation)
-    }
+        for(const relation of relatedData) {
+            await updateJoinTable(table, id, relation)
+        }
 
-    res.status(201).json("New Record Added");
+        res.status(201).json("New Record Added");
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -150,23 +139,26 @@ server.put('/:table/:id', async (req, res) => {
 server.delete('/:table/:id', async (req, res) =>{
     const { table, id } = req.params
     const { relatedData } = req.body; 
+    console.log(table, id, relatedData)
 
     const allowedTables = ["realms","cities","factions","npcs","regions"]
 
     if (!allowedTables.includes(table)){
-        res.status(404).json({error: "Table not found."})
+        console.log("Table not found")
+        return res.status(404).json({error: "Table not found."})
     }
 
-    const existing = await db.raw('SELECT * FROM cities WHERE id = ?', [id]);
+    const existing = await db.raw(`SELECT * FROM ${table} WHERE id = ?`, [id]);
     if (existing.length === 0) {
-      return res.status(404).json({ error: 'Record not found' });
+        console.log("Record not found")
+        return res.status(404).json({ error: 'Record not found' });
     }
 
     await db.raw(`DELETE FROM ${table} WHERE id = ?`, [id]);
 
-    //handle related record deletion
     for(const relation of relatedData) {
             await updateJoinTable(table, id, relation)
+            console.log(table, id, relation)
     }
 })
 

@@ -1,6 +1,6 @@
 export default function deleteRecord(path, data){
 
-    fetch(`http://localhost:4000/${path}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${path}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"

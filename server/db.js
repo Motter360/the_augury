@@ -8,6 +8,6 @@ export const db = knex({
   useNullAsDefault: true
 });
 
-db.on('query', function( queryData ) {
-    console.log( queryData );
-});
+// db.on('query', function( queryData ) {
+//     console.log( queryData );
+// });

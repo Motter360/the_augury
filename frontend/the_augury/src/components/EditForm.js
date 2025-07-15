@@ -26,8 +26,13 @@ export default function EditRecord(props){
 
     if(data){ 
         const record = data[0]
-
-        //function handleDelete(path, ){}
+        let readyToDelete = false;
+        
+        console.log(relatedCities)
+        
+        function loadTable(){
+            window.location.href = './'
+        }
 
         return(
             <>
@@ -57,10 +62,12 @@ export default function EditRecord(props){
                     
                     const relations =[NPC_IDs, factionIDs, cityIDs]
                     const relatedData = []
+                    const deletionData = []
 
                     for (const relation of relations){
                         if (relation){
                             relatedData.push(relation)
+                            deletionData.push({alter: relation.alter, id: []})
                         }
                     }
 
@@ -75,7 +82,23 @@ export default function EditRecord(props){
                         relatedData: relatedData,
                     }
 
-                    updateRecord(path, updatedRecord)
+                    const deletionRecord ={
+                        feildData: {
+                            name: name,
+                            DndClass: DndClass,
+                            realms_id: realm,
+                            regions_id: region,
+                            description: description,
+                        },
+                        relatedData: deletionData,
+                    }
+                    if(readyToDelete === false){
+                        console.log(readyToDelete)
+                        updateRecord(path, updatedRecord)
+                    } else {
+                        console.log("attempting to delete record")
+                        deleteRecord(path, deletionRecord)
+                    }
                 }}
                 >
                     <NameComponent record={record}/>
@@ -89,8 +112,14 @@ export default function EditRecord(props){
                                 relatedIDs={relatedFactions.map((data) => data.id)} />: null}
                     {relatedCities ? <CitiesComponent citiesData={citiesData}
                                 relatedIDs={relatedCities.map((data) => data.id)} />: null}
-                    <button className="formSubmit">Update Record</button>
-                    <button className="delete">DELETE</button>
+                    <div className="flex space-between">
+                        <button className="formSubmit" onClick={() => loadTable()}>Update Record</button>
+                        <button className="deleteRecord" onClick={() =>{
+                        readyToDelete = true
+                        loadTable()
+                        }}>DELETE</button>
+                    </div>
+                    
                 </form>
             </>
         )

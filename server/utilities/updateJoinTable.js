@@ -13,6 +13,7 @@ export default  async function updateJoinTable(table, id, relatedData){
     // Now that we have identified the relevant information, start quering the dataBase
     const rawData = await db.raw(`SELECT ${alterColumn} FROM ${joinTable} WHERE ${anchorColumn} = ?`,[id])
     const existingRelations = rawData.map(obj => obj[`${alterColumn}`])
+    console.log(existingRelations)
 
     // We now have the exsiting relationships, time to update them
     const targetData = relatedData.id

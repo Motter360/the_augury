@@ -8,10 +8,10 @@ import IndexTable from "@/components/IndexTable";
 export default function LandingPage(){
         const { data, loading, error } = useFetchData("");
         return (
-            <div className={styles.page}>
+            <div className="centered">
                 <Loading loading = {loading} />
                 <Error error = {error} />
-                <IndexTable data = {data} />
+                <IndexTable  data = {data} />
             </div>
         );
 }

@@ -1,6 +1,8 @@
 import { db } from '../db.js';
 
 export default async function queryJoinTable(joinTable, alterColumn, anchorColumn, newRelationIDs, oldRelationIDs, anchorID){
+        console.log("New Relation IDs: " + newRelationIDs, "Old Relation IDs: " + oldRelationIDs, "Anchor IDs: " + anchorID)
+
         if(newRelationIDs.length === 0 && oldRelationIDs.length === 0){
             console.log("Nope, Poke!")
             return
@@ -8,6 +10,7 @@ export default async function queryJoinTable(joinTable, alterColumn, anchorColum
 
         if(newRelationIDs === oldRelationIDs){
             console.log("No change, Poke!")
+            return
         }
         
         if(newRelationIDs.length === 0){
@@ -27,8 +30,10 @@ export default async function queryJoinTable(joinTable, alterColumn, anchorColum
 
         for(const alterID of oldRelationIDs){
             if(!newRelationIDs.includes(alterID)){
-            console.log("Removing " + alterID)
-            await db.raw(`DELETE FROM ${joinTable} WHERE ${alterColumn} = ? and ${anchorColumn} = ?`, [alterID, anchorID])
+                console.log("Removing " + alterID)
+                await db.raw(`DELETE FROM ${joinTable} WHERE ${alterColumn} = ? and ${anchorColumn} = ?`, [alterID, anchorID])
             }
         }
+
+        return
     }
