@@ -1,7 +1,7 @@
 export default function createNewRecord(tableName, data){
     console.log(tableName, data)
 
-    fetch(`http://localhost:4000/${tableName}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${tableName}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
