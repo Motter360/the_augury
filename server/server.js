@@ -94,21 +94,21 @@ server.post('/:table', async (req, res) => {
         const allowedTables = ["realms","cities","factions","npcs","regions"]
 
         if (!allowedTables.includes(table)){
-            res.status(404).json({error: "Table not found."})
+            res.status(404).json({error: "Table not found."});
         }
-        console.log("Creating new record", table, feildData, relatedData)
+        console.log("Creating new record", table, feildData, relatedData);
 
-        await SQLiteInsertQueries(table, feildData)
-
-        const relatedID = await db.raw(`SELECT id FROM ${table} WHERE name = ?`, [feildData.name])
-        const id = relatedID[0].id
-        console.log(id)
+        const id = await SQLiteInsertQueries(table, feildData);
 
         for(const relation of relatedData) {
             await updateJoinTable(table, id, relation)
         }
 
-        res.status(201).json("New Record Added");
+        res.status(201).json({
+            id,
+            ...feildData,
+            relatedData,
+        });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }

@@ -7,32 +7,37 @@ export default async function SQLiteInsertQueries(table, dataObj){
     if(table === "cities"){
         const {name, regions_id, description} = dataObj
         console.log(name, regions_id, description)
-        await db.raw('INSERT INTO cities (regions_id, name, description) VALUES (?, ?, ?)', 
+        const rows = await db.raw('INSERT INTO cities (regions_id, name, description) VALUES (?, ?, ?) returning id', 
         [regions_id, name, description])
+        return rows[0].id;
         
     }    
 
     if(table === "factions"){
         const {name, description} = dataObj
-        await db.raw('INSERT INTO factions (name, description) VALUES (?,?)', 
+        const rows = await db.raw('INSERT INTO factions (name, description) VALUES (?,?) returning id', 
         [name, description])
+        return rows[0].id;
     }
 
     if(table === "npcs"){
         const {name, DndClass, description} = dataObj
-        await db.raw('INSERT INTO npcs (name, class, description) VALUES (?,?,?)', 
+        const rows = await db.raw('INSERT INTO npcs (name, class, description) VALUES (?,?,?) returning id', 
         [name, DndClass, description])
+        return rows[0].id;
     }
 
     if(table === "realms"){
         const {name, description} = dataObj
-        await db.raw('INSERT INTO realms (name, description) VALUES (?,?)', 
+        const rows = await db.raw('INSERT INTO realms (name, description) VALUES (?,?) returning id', 
         [name, description])
+        return rows[0].id
     }
 
     if(table === "regions"){
         const {name, realms_id, description} = dataObj
-        await db.raw('INSERT INTO regions (name, realms_id, description) VALUES(?,?,?)', 
+        const rows = await db.raw('INSERT INTO regions (name, realms_id, description) VALUES(?,?,?) returning id', 
         [name, realms_id, description])
+        return rows[0].id
     }
 }

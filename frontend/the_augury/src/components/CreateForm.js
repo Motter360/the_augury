@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import RegionsComponent from "./formComponents/RegionsComponent.js";
 import NameComponent from "./formComponents/NameComponent.js";
 import DescriptionComponent from "./formComponents/DescriptionComponent.js";
@@ -8,6 +8,7 @@ import FactionsComponent from "./formComponents/FactionsComponents.js";
 import CitiesComponent from "./formComponents/CitiesComponent.js";
 import DndClassComponent from "./formComponents/DndClassComponent.js";
 import createNewRecord from "@/utilities/createNewRecord.js";
+import { useRouter } from "next/navigation.js";
 
 export default function CreateForm(props){
 
@@ -20,20 +21,25 @@ export default function CreateForm(props){
             citiesData, 
             dndClass,
             tableName
-        } = props
+    } = props;
+
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
     
     const record = {}
-
-    function loadTable(){
-        window.location.href = `./${tableName}`
-    }
   
     return(
         <>
             <h1>Create New Entries Dude!</h1>
-
             <form onSubmit={(e) =>{
-                            e.preventDefault()
+                            e.preventDefault();
+
+                            if(isLoading){
+                                return;
+                            }
+
+                            setIsLoading(true);
+
                             const formData = new FormData(e.currentTarget)
                             const name = formData.get('name')
                             const DndClass = dndClass ? formData.get('DndClass') : null
@@ -76,8 +82,15 @@ export default function CreateForm(props){
                                 relatedData: relatedData,
                             }
                             
-                            console.log(tableName, newRecord)
                             createNewRecord(tableName, newRecord)
+                                .then(data => {
+                                    console.log(data)
+                                    router.push(`/tables/${tableName}/${data.id}`);
+                                })
+                                .catch(error => console.error(error))
+                                .finally(() => {
+                                    setIsLoading(false);
+                                });
                         }
                     }>
                 <NameComponent record={record}/>
@@ -91,7 +104,7 @@ export default function CreateForm(props){
                             relatedIDs={[]} />: null}
                 {citiesData ? <CitiesComponent citiesData={citiesData}
                             relatedIDs={[]} />: null}
-                <button className="formSubmit" onClick={() => loadTable()}>Submit Creation</button>
+                <button className="formSubmit" >Submit Creation</button>
             </form>
         </>
     )

@@ -1,23 +1,17 @@
-export default function createNewRecord(tableName, data){
-    console.log(tableName, data)
-
-    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${tableName}`, {
+export default async function createNewRecord(tableName, record){
+   const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/${tableName}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(data)
-    }).then(res =>{
-        if(!res.ok){
-            console.log("Problem, Captain!")
-            return
-        }
-        return res.json()
-    })
-    .then(data => {
-        console.log("success");
-    })
-    .catch(error => {
-        console.log(error)
-    })
+        body: JSON.stringify(record)
+    });
+
+    if (!res.ok) {
+        throw new Error('createNewRecord failed');
+    }
+    
+    const data = await res.json()
+
+    return data;
 }
